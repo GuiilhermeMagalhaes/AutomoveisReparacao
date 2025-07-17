@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id',
     ];
 
     /**
@@ -44,5 +45,26 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function cliente()
+    {
+        return $this->hasOne(Cliente::class);
+    }
+
+    public function gestor()
+    {
+    return $this->hasOne(Gestor::class);
+    }
+
+    public function mecanico()
+    {
+    return $this->hasOne(Mecanico::class);
     }
 }

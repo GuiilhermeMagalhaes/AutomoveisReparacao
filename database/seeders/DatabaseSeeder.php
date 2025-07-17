@@ -3,8 +3,11 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Role;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,11 +16,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // Garante que os roles existem primeiro
+        $this->call([
+            RoleSeeder::class,
+        ]);
 
+        // Busca o ID do role 'Cliente'
+        $clienteRoleId = Role::where('name', 'Cliente')->first()->id;
+
+        // Cria o user com role_id
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
+            'role_id' => $clienteRoleId,    
         ]);
     }
 }
