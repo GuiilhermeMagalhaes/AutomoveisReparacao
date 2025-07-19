@@ -6,18 +6,28 @@ use Illuminate\Database\Eloquent\Model;
 
 class Marcacao extends Model
 {
+
+    protected $table = 'marcacoes';
+
+    protected $fillable = [
+        'cliente_id',
+        'oficina_id',
+        'data',
+        'estado',
+    ];
+
     public function cliente()
-{
-    return $this->belongsTo(Cliente::class);
-}
+    {
+        return $this->belongsTo(Cliente::class);
+    }
 
-public function mecanico()
-{
-    return $this->belongsTo(Mecanico::class);
-}
+    public function mecanico()
+    {
+        return $this->belongsTo(Mecanico::class);
+    }
 
-public function oficina()
-{
-    return $this->belongsTo(Oficina::class);
-}
+    public function oficina()
+    {
+        return $this->belongsTo(Oficina::class);
+    }
 }

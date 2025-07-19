@@ -3,12 +3,17 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MarcacaoController;
+
 
 
 Route::get('/', function () {
     return view('home');
-})->name('home');
+})->name('home')->middleware('auth');
 
+Route::get('/criarmarcacao', [MarcacaoController::class, 'createMarcacao'])->name('criarmarcacao')->middleware('auth');
+
+Route::post('/criarmarcacao', [MarcacaoController::class, 'storeMarcacao'])->name('criarmarcacao.store')->middleware('auth');
 
 
 //users routes:
