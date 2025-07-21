@@ -14,6 +14,7 @@
         <h1>Marcações</h1>
         <p>Bem-vindo à página de marcações. Aqui podes criar novas marcações para os teus serviços.</p>
         <button class="btn btn-primary" onclick="window.location.href='{{ route('criarmarcacao') }}'">Criar Marcação</button>
+        <button class="btn btn-secondary" onclick="window.location.href='{{ route('clientemarcacoes') }}'">Ver Marcações</button>
     </section>
 
 

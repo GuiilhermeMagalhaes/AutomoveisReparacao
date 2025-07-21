@@ -15,6 +15,11 @@ Route::get('/criarmarcacao', [MarcacaoController::class, 'createMarcacao'])->nam
 
 Route::post('/criarmarcacao', [MarcacaoController::class, 'storeMarcacao'])->name('criarmarcacao.store')->middleware('auth');
 
+Route::get('/marcacoes-cliente', [MarcacaoController::class, 'listarMarcacoesCliente'])->name('clientemarcacoes')->middleware('auth');
+
+Route::patch('/cliente/marcacoes/{id}/cancelar', [MarcacaoController::class, 'cancelarMarcacao'])
+    ->name('clientemarcacao.cancelar')
+    ->middleware('auth');
 
 //users routes:
 

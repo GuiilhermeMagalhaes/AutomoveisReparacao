@@ -21,6 +21,9 @@ class MarcacaoController extends Controller
 
     public function storeMarcacao(Request $request)
 {
+
+
+
     // Validação do formulário
     $request->validate([
         'oficina_id' => 'required|exists:oficinas,id',
@@ -37,4 +40,29 @@ class MarcacaoController extends Controller
 
     return redirect()->route('home')->with('success', 'Marcação criada com sucesso!');
     }
+
+    public function listarMarcacoesCliente()
+    {
+        $cliente = Auth::user()->cliente;
+        $marcacoes = Marcacao::where('cliente_id', $cliente->id)->get();
+
+        return view('marcacoescliente', compact('marcacoes'));
+    }
+
+    public function cancelarMarcacao($id)
+{
+    $marcacao = Marcacao::findOrFail($id);
+
+    // Garante que a marcação pertence ao cliente logado
+    if ($marcacao->cliente_id !== Auth::user()->cliente->id) {
+        abort(403, 'Acesso não autorizado.');
+    }
+
+    $marcacao->estado = 'Cancelada';
+    $marcacao->save();
+
+    return redirect()->route('clientemarcacoes')->with('success', 'Marcação cancelada com sucesso.');
 }
+
+}
+
