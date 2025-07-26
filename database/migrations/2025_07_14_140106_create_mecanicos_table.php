@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('mecanicos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('oficina_id')->constrained()->onDelete('cascade');
+            $table->foreignId('oficina_id')->nullable()->constrained('oficinas')->onDelete('set null');
             $table->timestamps();
         });
     }

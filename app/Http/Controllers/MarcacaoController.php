@@ -45,7 +45,8 @@ class MarcacaoController extends Controller
     {
         $cliente = Auth::user()->cliente;
         $marcacoes = Marcacao::where('cliente_id', $cliente->id)->get();
-
+        
+       
         return view('marcacoescliente', compact('marcacoes'));
     }
 
@@ -63,6 +64,27 @@ class MarcacaoController extends Controller
 
     return redirect()->route('clientemarcacoes')->with('success', 'Marcação cancelada com sucesso.');
 }
+
+    public function listarMarcacoes()
+    {
+        $marcacoes = Marcacao::all();
+        return view('gestormarcacoes', compact('marcacoes'));
+    }
+
+    public function atribuirMecanico(Request $request, $id)
+{
+    $request->validate([
+        'mecanico_id' => 'required|exists:mecanicos,id',
+    ]);
+
+    $marcacao = Marcacao::findOrFail($id);
+    $marcacao->mecanico_id = $request->input('mecanico_id');
+    $marcacao->estado = 'em_execucao';
+    $marcacao->save();
+
+    return redirect()->back()->with('success', 'Mecânico atribuído com sucesso.');
+}
+
 
 }
 

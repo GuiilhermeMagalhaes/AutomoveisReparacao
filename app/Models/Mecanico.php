@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Mecanico extends Model
 {
+
+protected $fillable = ['user_id', 'oficina_id'];
+
     public function user()
 {
     return $this->belongsTo(User::class);

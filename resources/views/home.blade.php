@@ -13,8 +13,51 @@
     <section class="conteudo">
         <h1>Marcações</h1>
         <p>Bem-vindo à página de marcações. Aqui podes criar novas marcações para os teus serviços.</p>
-        <button class="btn btn-primary" onclick="window.location.href='{{ route('criarmarcacao') }}'">Criar Marcação</button>
-        <button class="btn btn-secondary" onclick="window.location.href='{{ route('clientemarcacoes') }}'">Ver Marcações</button>
+        
+        <ul class="list-group ">
+            @if (Auth::user()->role->name === 'Cliente')
+                <li class="list-group-item">
+                    <button class="btn btn-primary" onclick="window.location.href='{{ route('criarmarcacao') }}'">Criar Marcação</button>
+            </li>
+            @endif
+
+            @if (Auth::user()->role->name === 'Cliente')
+                <li class="list-group-item">
+                    <button class="btn btn-secondary" onclick="window.location.href='{{ route('clientemarcacoes') }}'">Ver Marcações</button>
+                </li>
+            @endif
+
+            @if(Auth::user()->role->name === 'Gestor')
+                <li class="list-group-item">
+                    <a href="{{ route('gestormarcacoes') }}" class="btn btn-success">Ver Marcações Gestor</a>
+                </li>
+            @endif
+
+        @if(Auth::user()->role->name === 'Gestor')
+        <li class="list-group-item">
+            <a href="{{ route('gestor.utilizadores') }}" class="btn btn-info">Gestão de Utilizadores</a>
+        </li>
+        @endif
+
+        @if(Auth::user()->role->name === 'Gestor')
+            <li class="list-group-item">
+                <a href="{{ route('gestor_mecanicos') }}" class="btn btn-warning">Gestão de Mecânicos</a>
+            </li>
+        @endif
+
+        @if(Auth::user()->role->name === 'Mecanico')
+            <li class="list-group-item">
+                <a href="{{ route('mecanico_marcacoes') }}" class="btn btn-info">Ver Marcações Mecanico</a>
+            </li>
+        @endif
+         
+        <li class="list-group-item">
+        <form method="POST" action="{{ route('logout') }}" style="display: inline;">
+            @csrf
+            <button type="submit" class="btn btn-danger">Terminar Sessão</button>
+        </form>
+        </li>
+        </ul>
     </section>
 
 
